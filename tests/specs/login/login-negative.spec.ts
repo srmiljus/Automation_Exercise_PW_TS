@@ -1,0 +1,17 @@
+import { test, expect } from '../../fixtures/base.fixture';
+import { INVALID_USER } from '../../constants/invalidUser';
+import { MESSAGES } from '../../constants/messages';
+
+
+test.describe('Invalid User Login', () => {
+  test('Should show error message for invalid login credentials @negative @regression', async ({ pageManager: { HomePage, LoginPage } }) => {
+    await HomePage.goToLoginSignup();
+
+    await LoginPage.enterLoginEmail(INVALID_USER.EMAIL);
+    await LoginPage.enterLoginPassword(INVALID_USER.PASSWORD);
+    await LoginPage.clickLoginButton();
+
+    await expect(LoginPage.loginErrorLocator).toBeVisible();
+    await expect(LoginPage.loginErrorLocator).toHaveText(MESSAGES.INVALID_LOGIN);
+  });
+});

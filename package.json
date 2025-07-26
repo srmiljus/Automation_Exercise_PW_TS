@@ -1,0 +1,24 @@
+{
+  "name": "automationexercise_playwright_typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "Srdjan Miljus",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.15",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "test:run:ui": "playwright test --ui",
+    "test:run:chrome:headless": "playwright test --project chromium",
+    "test:run:firefox:headless": "playwright test --project firefox",
+    "test:run:webkit:headless": "playwright test --project webkit",
+    "test:run:all:headless": "playwright test",
+    "test:open:chromium": "playwright test --project chromium --headed",
+    "test:open:firefox": "playwright test --project firefox --headed",
+    "test:open:webkit": "playwright test --project webkit --headed",
+    "test:open:all": "playwright test --headed"
+  }
+}

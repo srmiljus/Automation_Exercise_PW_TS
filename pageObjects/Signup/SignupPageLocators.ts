@@ -1,0 +1,16 @@
+export const SignupPageLocators = {
+  firstName: 'first_name',
+  lastName: 'last_name',
+  password: 'password',
+  company: 'company',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  zipcode: 'zipcode',
+  country: 'country',
+  days: 'days',
+  months: 'months',
+  years: 'years',
+  mobileNumber: 'mobile_number',
+  createAccount: 'create-account',
+};

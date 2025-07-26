@@ -1,0 +1,25 @@
+{
+    "user": {
+        "name": "Srdjan",
+        "email": "srdjan",
+        "title": "Mr.",
+        "firstName": "Srdjan",
+        "lastName": "Miljus",
+        "password": "something",
+        "birthday": "23",
+        "birthmonth": "February",
+        "birthyear": "1981",
+        "company": "LifeCoaching",
+        "address": "Street 123",
+        "city": "Belgrade",
+        "state": "RS",
+        "country": "Canada",
+        "zipcode": "11010",
+        "mobileNumber": "9999999999"
+    },
+    "product": {
+        "name": "Pure Cotton V-Neck T-Shirt",
+        "price": "Rs. 1299",
+        "quantity": "1"
+    }
+}
