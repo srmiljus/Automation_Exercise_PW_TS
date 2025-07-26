@@ -2,7 +2,7 @@
   "name": "automationexercise_playwright_typescript",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "",
+  "repository": "https://github.com/srmiljus/Automation_Exercise_PW_TS",
   "author": "Srdjan Miljus",
   "license": "UNLICENSED",
   "devDependencies": {
