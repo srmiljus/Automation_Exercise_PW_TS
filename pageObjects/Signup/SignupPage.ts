@@ -157,7 +157,6 @@ export class SignupPage extends BasePage {
             await this.selectCountry(user.country);
             await this.enterMobileNumber(user.mobileNumber);
             await this.clickCreateAccountButton();
-            console.log('Registration form filled successfully');
         } catch (error) {
             console.warn('Failed to fill registration form:', error);
         }

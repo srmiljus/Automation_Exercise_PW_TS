@@ -48,7 +48,6 @@ export class HomePage extends BasePage {
   async goToLoginSignup(): Promise<void> {
     await this.open('/');
     await expect(this.getCurrentUrl()).resolves.toBe(URLS.HOME);
-    console.log('Navigating to Login/Signup page...');
     await this.clickNavigationLink(HomePageLocators.loginLinkName);
   }
 }
