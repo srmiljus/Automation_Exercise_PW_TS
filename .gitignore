@@ -1,0 +1,19 @@
+# Playwright output
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# VS Code / OS / general clutter
+.vscode/
+.idea/
+.DS_Store
+*.log
+
+# Env files
+.env
+
+# Optional: Yarn logs (ako neko koristi Yarn)
+yarn-debug.log*
+yarn-error.log*
