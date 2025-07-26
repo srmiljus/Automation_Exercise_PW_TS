@@ -50,6 +50,9 @@ jobs:
 
       - name: Generate Allure Report
         run: npx allure generate allure-results --clean -o public
+      
+      - name: Add 404.html redirect to index.html
+        run: echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; URL=index.html" /></head><body>Redirecting...</body></html>' > public/404.html  
 
       - name: Add .nojekyll file to disable Jekyll
         run: touch public/.nojekyll
