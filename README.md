@@ -1,4 +1,4 @@
-🎭 Playwright Automation Test Suite
+Playwright Automation Test Suite
 
 This repository contains end-to-end automated tests written in Playwright with TypeScript.
 

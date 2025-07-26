@@ -28,5 +28,8 @@
     "allure:open": "allure open allure-report",
     "allure:report": "npm run allure:generate && npm run allure:open",
     "allure:deploy": "npm run allure:generate && gh-pages -d allure-report"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1"
   }
 }
