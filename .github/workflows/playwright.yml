@@ -1,4 +1,4 @@
-name: Playwright Tests with Allure Pages
+name: Playwright Tests
 
 on:
   workflow_dispatch:
@@ -19,15 +19,13 @@ on:
     branches: [ main, master ]
 
 jobs:
-  test-and-deploy:
+  test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -49,38 +47,12 @@ jobs:
           fi
 
       - name: Generate Allure Report
-        run: npx allure generate allure-results --clean -o public
-      
-      - name: Add 404.html redirect to index.html
-        run: echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; URL=index.html" /></head><body>Redirecting...</body></html>' > public/404.html  
+        run: npx allure generate allure-results --clean -o allure-report
 
-      - name: Add .nojekyll file to disable Jekyll
-        run: touch public/.nojekyll
-
-      - name: Upload Allure Report as artifact
+      - name: Upload Allure Report as Artifact
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: allure-report
-          path: public/
+          path: allure-report/
           retention-days: 30
-
-      - name: Upload Playwright HTML Report
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: reports/
-          retention-days: 30
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Deploy Allure report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         publish_dir: ./public
-         destination_dir: .
