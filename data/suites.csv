@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2922","Successful User Registration @smoke @regression","chromium","Sat Jul 26 13:48:17 UTC 2025","passed","Sat Jul 26 13:48:20 UTC 2025","User Registration","specs/signup/registration.spec.ts","",""
+"","3271","Successful User Login via API-created user @smoke @regression","chromium","Sat Jul 26 13:48:08 UTC 2025","passed","Sat Jul 26 13:48:11 UTC 2025","","specs/login/login-logout.spec.ts","",""
+"","3768","Verify searching and adding certain product to the Cart @smoke @regression","chromium","Sat Jul 26 13:48:13 UTC 2025","passed","Sat Jul 26 13:48:17 UTC 2025","Search and Add Product","specs/product/search-add-product.spec.ts","",""
+"","1903","Should show error message for invalid login credentials @negative @regression","chromium","Sat Jul 26 13:48:12 UTC 2025","passed","Sat Jul 26 13:48:13 UTC 2025","Invalid User Login","specs/login/login-negative.spec.ts","",""
+"","2389","Should show error message for already registered email @negative @regression","chromium","Sat Jul 26 13:48:20 UTC 2025","passed","Sat Jul 26 13:48:23 UTC 2025","Signup with Existing User","specs/signup/signup-negative.spec.ts","",""
