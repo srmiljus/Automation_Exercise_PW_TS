@@ -38,12 +38,16 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests with Allure reporter
+      - name: Run Playwright tests on all browsers with tag filtering
         run: |
           if [[ "${{ github.event.inputs.test-tag }}" != "" && "${{ github.event.inputs.test-tag }}" != "all" ]]; then
-            npx playwright test --grep "${{ github.event.inputs.test-tag }}" --reporter=line,allure-playwright
+            npx playwright test --grep "${{ github.event.inputs.test-tag }}" \
+              --project=chromium --project=firefox --project=webkit \
+              --reporter=line,allure-playwright
           else
-            npx playwright test --reporter=line,allure-playwright
+            npx playwright test \
+              --project=chromium --project=firefox --project=webkit \
+              --reporter=line,allure-playwright
           fi
 
       - name: Generate Allure Report
