@@ -5,6 +5,10 @@ playwright-report/
 blob-report/
 playwright/.cache/
 
+# Allure output
+allure-results/
+allure-report/
+
 # VS Code / OS / general clutter
 .vscode/
 .idea/
