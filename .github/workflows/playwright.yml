@@ -12,6 +12,7 @@ on:
           - '@smoke'
           - '@regression'
           - '@negative'
+          - '@e2e'
           - 'all'
       browser:
         description: 'Select browser to run tests'
