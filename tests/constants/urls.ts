@@ -1,5 +1,5 @@
 // @ts-ignore
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.BASE_URL || 'https://www.automationexercise.com';
 
 export const URLS = {
   HOME: `${BASE_URL}/`,
