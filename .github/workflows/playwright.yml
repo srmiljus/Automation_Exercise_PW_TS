@@ -13,6 +13,17 @@ on:
           - '@regression'
           - '@negative'
           - 'all'
+      browser:
+        description: 'Select browser to run tests'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - 'chromium'
+          - 'firefox'
+          - 'webkit'
+
   push:
     branches: [ main, master ]
   pull_request:
@@ -48,12 +59,19 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          if [[ "${{ github.event.inputs.test-tag }}" != "" && "${{ github.event.inputs.test-tag }}" != "all" ]]; then
-            npx playwright test --grep "${{ github.event.inputs.test-tag }}" \
-              --project=chromium --project=firefox --project=webkit
+          TAG="${{ github.event.inputs.test-tag }}"
+          BROWSER="${{ github.event.inputs.browser }}"
+
+          if [[ "$BROWSER" == "all" ]]; then
+            PROJECTS="--project=chromium --project=firefox --project=webkit"
           else
-            npx playwright test \
-              --project=chromium --project=firefox --project=webkit
+            PROJECTS="--project=$BROWSER"
+          fi
+
+          if [[ "$TAG" != "" && "$TAG" != "all" ]]; then
+            npx playwright test --grep "$TAG" $PROJECTS --reporter=line,allure-playwright
+          else
+            npx playwright test $PROJECTS --reporter=line,allure-playwright
           fi
 
       - name: Generate Allure Report
