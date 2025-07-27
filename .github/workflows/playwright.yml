@@ -71,7 +71,7 @@ jobs:
           if [[ -n "$TAG" && "$TAG" != "all" ]]; then
             npx playwright test --grep "$TAG" $PROJECTS --reporter=line,html,allure-playwright
           else
-            npx playwright test $PROJECTS --reporter=line,html,allure-playwright
+            npx playwright test $PROJECTS
           fi
 
       - name: Generate Allure Report
