@@ -1,4 +1,4 @@
-import { Page, Locator, selectors } from '@playwright/test';
+import { Page, Locator, selectors, expect } from '@playwright/test';
 
 export abstract class BasePage {
     constructor(protected readonly page: Page) {
@@ -29,7 +29,27 @@ export abstract class BasePage {
         await locator.waitFor({ state: 'visible' });
     }
 
+    async waitUntilHidden(locator: Locator): Promise<void> {
+        await locator.waitFor({ state: 'hidden' });
+    }
+
     async hover(locator: Locator): Promise<void> {
         await locator.hover();
+    }
+
+    async assertVisible(locator: Locator): Promise<void> {
+        await expect(locator).toBeVisible();
+    }
+
+    async assertHidden(locator: Locator): Promise<void> {
+        await expect(locator).toBeHidden();
+    }
+
+    async assertHasText(locator: Locator, expectedText: string): Promise<void> {
+        await expect(locator).toHaveText(expectedText);
+    }
+
+    async isVisible(locator: Locator): Promise<boolean> {
+        return await locator.isVisible();
     }
 }

@@ -12,7 +12,7 @@ test('E2E: Register, Add to Cart, Logout & Delete @e2e', async ({
 
   await LoginPage.enterSignupName(userData.name);
   await LoginPage.enterSignupEmail(userData.email);
-  await LoginPage.clickSignupButton();
+  await LoginPage.clickSignup();
 
   await expect(SignupPage.getCurrentUrl()).resolves.toBe(URLS.SIGNUP);
   await SignupPage.fillRegistrationForm(userData);

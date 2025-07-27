@@ -1,20 +1,21 @@
-import { Page, expect, Locator } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { BasePage } from '../Base/BasePage';
 import { URLS } from '../../tests/constants/urls';
-import { HomePageLocators } from './HomePageLocators';
 
 export class HomePage extends BasePage {
   constructor(protected readonly page: Page) {
     super(page);
   }
 
+  private loginLinkName = 'Signup / Login';
+  private loggedInTextPrefix = 'Logged in as ';
+
   private getLoginLink(linkText: string): Locator {
     return this.page.getByRole('link', { name: linkText });
   }
 
   private getLoggedInText(userName: string): Locator {
-    const fullText = `${HomePageLocators.loggedInTextPrefix}${userName}`;
-    return this.page.getByText(fullText);
+    return this.page.getByText(`${this.loggedInTextPrefix}${userName}`);
   }
 
   async clickNavigationLink(linkText: string): Promise<void> {
@@ -36,7 +37,7 @@ export class HomePage extends BasePage {
 
   async isLoginLinkVisible(): Promise<boolean> {
     try {
-      const loginLink = this.getLoginLink(HomePageLocators.loginLinkName);
+      const loginLink = this.getLoginLink(this.loginLinkName);
       await this.waitUntilVisible(loginLink);
       return await loginLink.isVisible();
     } catch (error) {
@@ -47,7 +48,10 @@ export class HomePage extends BasePage {
 
   async goToLoginSignup(): Promise<void> {
     await this.open('/');
-    await expect(this.getCurrentUrl()).resolves.toBe(URLS.HOME);
-    await this.clickNavigationLink(HomePageLocators.loginLinkName);
+    const currentUrl = await this.getCurrentUrl();
+    if (!currentUrl.includes(URLS.HOME)) {
+      throw new Error(`Unexpected URL after opening home page: ${currentUrl}`);
+    }
+    await this.clickNavigationLink(this.loginLinkName);
   }
 }

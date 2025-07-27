@@ -1,6 +1,5 @@
+import { Page, Locator } from '@playwright/test';
 import { BasePage } from '../Base/BasePage';
-import { expect, Page, Locator } from '@playwright/test';
-import { SignupPageLocators } from './SignupPageLocators';
 
 export interface UserRegistrationData {
     title: string;
@@ -46,7 +45,7 @@ export class SignupPage extends BasePage {
 
     async enterPassword(password: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.password), password);
+            await this.fillInput(this.getInput('password'), password);
         } catch (error) {
             console.warn('Failed to enter password:', error);
         }
@@ -54,9 +53,9 @@ export class SignupPage extends BasePage {
 
     async selectBirthday(day: string, month: string, year: string): Promise<void> {
         try {
-            await this.getDropdown(SignupPageLocators.days).selectOption({ label: day });
-            await this.getDropdown(SignupPageLocators.months).selectOption({ label: month });
-            await this.getDropdown(SignupPageLocators.years).selectOption({ label: year });
+            await this.getDropdown('days').selectOption({ label: day });
+            await this.getDropdown('months').selectOption({ label: month });
+            await this.getDropdown('years').selectOption({ label: year });
         } catch (error) {
             console.warn('Failed to select birthday:', error);
         }
@@ -64,7 +63,7 @@ export class SignupPage extends BasePage {
 
     async enterFirstName(firstName: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.firstName), firstName);
+            await this.fillInput(this.getInput('first_name'), firstName);
         } catch (error) {
             console.warn('Failed to enter first name:', error);
         }
@@ -72,7 +71,7 @@ export class SignupPage extends BasePage {
 
     async enterLastName(lastName: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.lastName), lastName);
+            await this.fillInput(this.getInput('last_name'), lastName);
         } catch (error) {
             console.warn('Failed to enter last name:', error);
         }
@@ -80,7 +79,7 @@ export class SignupPage extends BasePage {
 
     async enterCompany(company: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.company), company);
+            await this.fillInput(this.getInput('company'), company);
         } catch (error) {
             console.warn('Failed to enter company:', error);
         }
@@ -88,7 +87,7 @@ export class SignupPage extends BasePage {
 
     async enterAddress(address: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.address), address);
+            await this.fillInput(this.getInput('address'), address);
         } catch (error) {
             console.warn('Failed to enter address:', error);
         }
@@ -96,7 +95,7 @@ export class SignupPage extends BasePage {
 
     async enterCity(city: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.city), city);
+            await this.fillInput(this.getInput('city'), city);
         } catch (error) {
             console.warn('Failed to enter city:', error);
         }
@@ -104,7 +103,7 @@ export class SignupPage extends BasePage {
 
     async enterState(state: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.state), state);
+            await this.fillInput(this.getInput('state'), state);
         } catch (error) {
             console.warn('Failed to enter state:', error);
         }
@@ -112,7 +111,7 @@ export class SignupPage extends BasePage {
 
     async enterZipcode(zipcode: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.zipcode), zipcode);
+            await this.fillInput(this.getInput('zipcode'), zipcode);
         } catch (error) {
             console.warn('Failed to enter zipcode:', error);
         }
@@ -120,7 +119,7 @@ export class SignupPage extends BasePage {
 
     async selectCountry(country: string): Promise<void> {
         try {
-            await this.getDropdown(SignupPageLocators.country).selectOption({ label: country });
+            await this.getDropdown('country').selectOption({ label: country });
         } catch (error) {
             console.warn('Failed to select country:', error);
         }
@@ -128,7 +127,7 @@ export class SignupPage extends BasePage {
 
     async enterMobileNumber(number: string): Promise<void> {
         try {
-            await this.fillInput(this.getInput(SignupPageLocators.mobileNumber), number);
+            await this.fillInput(this.getInput('mobile_number'), number);
         } catch (error) {
             console.warn('Failed to enter mobile number:', error);
         }
@@ -136,7 +135,7 @@ export class SignupPage extends BasePage {
 
     async clickCreateAccountButton(): Promise<void> {
         try {
-            await this.click(this.getInput(SignupPageLocators.createAccount));
+            await this.click(this.getInput('create-account'));
         } catch (error) {
             console.warn('Failed to click Create Account button:', error);
         }

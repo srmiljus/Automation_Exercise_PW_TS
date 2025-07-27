@@ -8,9 +8,9 @@ test.describe('Signup with Existing User', () => {
 
     await LoginPage.enterSignupName(EXISTING_USER.NAME);
     await LoginPage.enterSignupEmail(EXISTING_USER.EMAIL);
-    await LoginPage.clickSignupButton();
+    await LoginPage.clickSignup();
 
-    const errorMessage = LoginPage.signupErrorLocator;
+    const errorMessage = LoginPage.getSignupErrorLocator();
     await expect(errorMessage).toHaveText(MESSAGES.EXISTING_USER_LOGIN);
   });
 });

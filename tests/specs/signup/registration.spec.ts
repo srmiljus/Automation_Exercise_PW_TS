@@ -11,7 +11,7 @@ test.describe('User Registration', () => {
 
     await LoginPage.enterSignupName(userData.name);
     await LoginPage.enterSignupEmail(userData.email);
-    await LoginPage.clickSignupButton();
+    await LoginPage.clickSignup();
 
     await expect(SignupPage.getCurrentUrl()).resolves.toBe(URLS.SIGNUP);
 

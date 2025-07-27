@@ -1,47 +1,46 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from '../Base/BasePage';
-import { LoginPageLocators } from './LoginPageLocators';
 
 export class LoginPage extends BasePage {
   constructor(protected readonly page: Page) {
     super(page);
   }
 
-  private get signupNameInput(): Locator {
-    return this.page.getByTestId(LoginPageLocators.signupNameInput);
+  private get signupName(): Locator {
+    return this.page.getByTestId('signup-name');
   }
 
-  private get signupEmailInput(): Locator {
-    return this.page.getByTestId(LoginPageLocators.signupEmailInput);
+  private get signupEmail(): Locator {
+    return this.page.getByTestId('signup-email');
   }
 
   private get signupButton(): Locator {
-    return this.page.getByTestId(LoginPageLocators.signupButton);
+    return this.page.getByTestId('signup-button');
   }
 
-  private get loginEmailInput(): Locator {
-    return this.page.getByTestId(LoginPageLocators.loginEmailInput);
+  private get loginEmail(): Locator {
+    return this.page.getByTestId('login-email');
   }
 
-  private get loginPasswordInput(): Locator {
-    return this.page.getByTestId(LoginPageLocators.loginPasswordInput);
+  private get loginPassword(): Locator {
+    return this.page.getByTestId('login-password');
   }
 
   private get loginButton(): Locator {
-    return this.page.getByTestId(LoginPageLocators.loginButton);
+    return this.page.getByTestId('login-button');
   }
 
-  get loginErrorLocator(): Locator {
-    return this.page.getByText(LoginPageLocators.loginErrorText);
+  get loginError(): Locator {
+    return this.page.getByText('Your email or password is incorrect!');
   }
 
-  get signupErrorLocator(): Locator {
-    return this.page.getByText(LoginPageLocators.signupErrorText);
+  get signupError(): Locator {
+    return this.page.getByText('Email Address already exist!');
   }
 
   async enterSignupName(name: string): Promise<void> {
     try {
-      await this.fillInput(this.signupNameInput, name);
+      await this.fillInput(this.signupName, name);
     } catch (error) {
       console.warn('Failed to enter signup name:', error);
     }
@@ -49,13 +48,13 @@ export class LoginPage extends BasePage {
 
   async enterSignupEmail(email: string): Promise<void> {
     try {
-      await this.fillInput(this.signupEmailInput, email);
+      await this.fillInput(this.signupEmail, email);
     } catch (error) {
       console.warn('Failed to enter signup email:', error);
     }
   }
 
-  async clickSignupButton(): Promise<void> {
+  async clickSignup(): Promise<void> {
     try {
       await this.click(this.signupButton);
     } catch (error) {
@@ -65,7 +64,7 @@ export class LoginPage extends BasePage {
 
   async enterLoginEmail(email: string): Promise<void> {
     try {
-      await this.fillInput(this.loginEmailInput, email);
+      await this.fillInput(this.loginEmail, email);
     } catch (error) {
       console.warn('Failed to enter login email:', error);
     }
@@ -73,17 +72,25 @@ export class LoginPage extends BasePage {
 
   async enterLoginPassword(password: string): Promise<void> {
     try {
-      await this.fillInput(this.loginPasswordInput, password);
+      await this.fillInput(this.loginPassword, password);
     } catch (error) {
       console.warn('Failed to enter login password:', error);
     }
   }
 
-  async clickLoginButton(): Promise<void> {
+  async clickLogin(): Promise<void> {
     try {
       await this.click(this.loginButton);
     } catch (error) {
       console.warn('Failed to click login button:', error);
     }
+  }
+
+  getLoginErrorLocator(): Locator {
+    return this.loginError;
+  }
+
+  getSignupErrorLocator(): Locator {
+    return this.signupError;
   }
 }

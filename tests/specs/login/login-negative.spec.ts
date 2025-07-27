@@ -9,9 +9,9 @@ test.describe('Invalid User Login', () => {
 
     await LoginPage.enterLoginEmail(INVALID_USER.EMAIL);
     await LoginPage.enterLoginPassword(INVALID_USER.PASSWORD);
-    await LoginPage.clickLoginButton();
+    await LoginPage.clickLogin();
 
-    await expect(LoginPage.loginErrorLocator).toBeVisible();
-    await expect(LoginPage.loginErrorLocator).toHaveText(MESSAGES.INVALID_LOGIN);
+    await expect(LoginPage.getLoginErrorLocator()).toBeVisible();
+    await expect(LoginPage.getLoginErrorLocator()).toHaveText(MESSAGES.INVALID_LOGIN);
   });
 });

@@ -1,6 +1,5 @@
-import { BasePage } from '../Base/BasePage';
 import { Page, Locator } from '@playwright/test';
-import { ProductPageLocators } from './ProductPageLocators';
+import { BasePage } from '../Base/BasePage';
 
 export class ProductPage extends BasePage {
   constructor(protected readonly page: Page) {
@@ -8,29 +7,27 @@ export class ProductPage extends BasePage {
   }
 
   private get searchInput(): Locator {
-    return this.page.locator(ProductPageLocators.searchInput);
+    return this.page.locator('#search_product');
   }
 
   private get searchButton(): Locator {
-    return this.page.locator(ProductPageLocators.searchButton);
+    return this.page.locator('#submit_search');
   }
 
   private get cartModal(): Locator {
-    return this.page.locator(ProductPageLocators.cartModal);
+    return this.page.locator('#cartModal');
   }
 
   private get cartModalTitle(): Locator {
-    return this.page.locator(ProductPageLocators.cartModalTitle);
+    return this.page.locator('.modal-title');
   }
 
   private get viewCartLink(): Locator {
-    return this.page.getByRole(ProductPageLocators.viewCartLink.role, {
-      name: ProductPageLocators.viewCartLink.name,
-    });
+    return this.page.getByRole('link', { name: 'View Cart' });
   }
 
   private get productNameElements(): Locator {
-    return this.page.locator(ProductPageLocators.productName);
+    return this.page.locator('.productinfo p');
   }
 
   private findProductRowByName(productName: string): Locator {
@@ -43,7 +40,7 @@ export class ProductPage extends BasePage {
       await this.fillInput(this.searchInput, productName);
       await this.click(this.searchButton);
     } catch (error) {
-      console.warn('Failed to perform search:', error);
+      console.warn('Failed to perform product search:', error);
     }
   }
 
@@ -51,9 +48,9 @@ export class ProductPage extends BasePage {
     try {
       const productRow = this.findProductRowByName(productName);
       await this.waitUntilVisible(productRow);
-      return productRow.isVisible();
+      return await productRow.isVisible();
     } catch (error) {
-      console.warn('Product not visible:', error);
+      console.warn(`Product "${productName}" not visible:`, error);
       return false;
     }
   }
@@ -63,21 +60,18 @@ export class ProductPage extends BasePage {
       const productRow = this.findProductRowByName(productName);
       await this.hover(productRow);
 
-      const addToCartButton = productRow
-        .locator('..')
-        .locator(ProductPageLocators.addToCartButton);
-
+      const addToCartButton = productRow.locator('..').locator('a:has-text("Add to cart")');
       await this.waitUntilVisible(addToCartButton);
       await this.click(addToCartButton);
     } catch (error) {
-      console.warn(`Failed to click 'Add to cart' for ${productName}:`, error);
+      console.warn(`Failed to click 'Add to cart' for "${productName}":`, error);
     }
   }
 
   async isCartModalVisible(): Promise<boolean> {
     try {
       await this.waitUntilVisible(this.cartModal);
-      return this.cartModal.isVisible();
+      return await this.cartModal.isVisible();
     } catch (error) {
       console.warn('Cart modal not visible:', error);
       return false;
@@ -90,7 +84,7 @@ export class ProductPage extends BasePage {
       const actualTitle = await this.getText(this.cartModalTitle);
       return actualTitle?.trim() === expectedTitle;
     } catch (error) {
-      console.warn('Cart title mismatch or not visible:', error);
+      console.warn('Cart modal title mismatch or not visible:', error);
       return false;
     }
   }
@@ -100,7 +94,7 @@ export class ProductPage extends BasePage {
       await this.waitUntilVisible(this.viewCartLink);
       await this.click(this.viewCartLink);
     } catch (error) {
-      console.warn('Failed to click view cart link:', error);
+      console.warn('Failed to click View Cart link:', error);
     }
   }
 }

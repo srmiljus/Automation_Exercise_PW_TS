@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from '../Base/BasePage';
-import { CartPageLocators } from './CartPageLocators';
 
 interface CartProductData {
   name: string;
@@ -13,74 +12,41 @@ export class CartPage extends BasePage {
     super(page);
   }
 
-  private get productNameElements(): Locator {
-    return this.page.locator(CartPageLocators.cartTableRows);
+  private get cartTableRows(): Locator {
+    return this.page.locator('#cart_info_table tbody tr');
   }
 
   private getDescriptionCell(row: Locator): Locator {
-    return row.locator(CartPageLocators.cartDescriptionCell);
+    return row.locator('td.cart_description');
   }
 
   private getPriceCell(row: Locator): Locator {
-    return row.locator(CartPageLocators.cartCell).nth(CartPageLocators.priceColumnIndex);
+    return row.locator('td').nth(2);
   }
 
   private getQuantityCell(row: Locator): Locator {
-    return row.locator(CartPageLocators.cartCell).nth(CartPageLocators.quantityColumnIndex);
+    return row.locator('td').nth(3);
   }
 
-  private findProductRowByName(productName: string): Locator {
-    return this.productNameElements.filter({ hasText: productName }).first();
-  }
-
-  async assertProductNameInDescription(productName: string): Promise<void> {
-    try {
-      const row = this.findProductRowByName(productName);
-      await expect(row).toBeVisible();
-
-      const descriptionCell = this.getDescriptionCell(row);
-      const descriptionText = await this.getText(descriptionCell);
-      expect(descriptionText).toContain(productName);
-    } catch (error) {
-      console.warn(`Failed to assert product name "${productName}" in description:`, error);
-    }
-  }
-
-  async doesProductPriceMatch(productName: string, expectedPrice: string): Promise<boolean> {
-    try {
-      const row = this.findProductRowByName(productName);
-      await expect(row).toBeVisible();
-
-      const priceCell = this.getPriceCell(row);
-      const priceText = await this.getText(priceCell);
-      return priceText?.trim().includes(expectedPrice) ?? false;
-    } catch (error) {
-      console.warn(`Failed to verify price for product "${productName}":`, error);
-      return false;
-    }
-  }
-
-  async doesProductQuantityMatch(productName: string, expectedQuantity: string): Promise<boolean> {
-    try {
-      const row = this.findProductRowByName(productName);
-      await expect(row).toBeVisible();
-
-      const quantityCell = this.getQuantityCell(row);
-      const quantityText = await this.getText(quantityCell);
-      return quantityText?.trim() === expectedQuantity;
-    } catch (error) {
-      console.warn(`Failed to verify quantity for product "${productName}":`, error);
-      return false;
-    }
+  private findProductRow(productName: string): Locator {
+    return this.cartTableRows.filter({ hasText: productName }).first();
   }
 
   async assertProductDetailsMatch(data: CartProductData): Promise<void> {
-    await this.assertProductNameInDescription(data.name);
+    try {
+      const row = this.findProductRow(data.name);
+      await this.waitUntilVisible(row);
 
-    const priceMatches = await this.doesProductPriceMatch(data.name, data.price);
-    expect(priceMatches).toBeTruthy();
+      const description = await this.getText(this.getDescriptionCell(row));
+      expect(description).toContain(data.name);
 
-    const quantityMatches = await this.doesProductQuantityMatch(data.name, data.quantity);
-    expect(quantityMatches).toBeTruthy();
+      const price = await this.getText(this.getPriceCell(row));
+      expect(price?.trim()).toContain(data.price);
+
+      const quantity = await this.getText(this.getQuantityCell(row));
+      expect(quantity?.trim()).toBe(data.quantity);
+    } catch (error) {
+      console.warn(`Failed to assert product details for "${data.name}":`, error);
+    }
   }
 }

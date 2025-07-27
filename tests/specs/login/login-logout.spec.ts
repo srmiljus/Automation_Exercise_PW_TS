@@ -13,7 +13,7 @@ test('Successful User Login via API-created user @smoke @regression', async ({
 
   await LoginPage.enterLoginEmail(userData.email);
   await LoginPage.enterLoginPassword(userData.password);
-  await LoginPage.clickLoginButton();
+  await LoginPage.clickLogin();
 
   const isVisible = await HomePage.isUserLoggedIn(userData.name);
   expect(isVisible).toBeTruthy();
