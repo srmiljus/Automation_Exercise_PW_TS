@@ -47,6 +47,16 @@ npm ci
 npx playwright install --with-deps
 ```
 
+### 4. (Optional) Set environment variables via .env file
+
+You can override default settings like BASE_URL by creating a .env file in the project root:
+
+```env
+BASE_URL=https://www.automationexercise.com
+```
+
+> GitHub Actions automatically copies `.env` to `.env.local` during test execution.
+
 ---
 
 ## Test Execution Instructions
@@ -64,6 +74,14 @@ npx playwright test --grep @smoke
 npx playwright test --grep @regression
 npx playwright test --grep @negative
 ```
+
+### Run tests by browser
+
+```bash
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
+
 
 ### Show HTML report locally
 
@@ -99,7 +117,9 @@ npx playwright show-report
 GitHub Actions workflow:
 
 * Runs on every push or PR to `main` or `master`
-* Supports manual triggering with tag selection dropdown (`@smoke`, `@regression`, `@negative`, `all`)
+* Supports manual triggering with dropdowns for:
+  - Test tag selection (`@smoke`, `@regression`, `@negative`, `all`)
+  - Browser selection (`chromium`, `firefox`, `webkit`, `all`)
 * Generates and uploads Allure and HTML reports as artifacts
 
 Workflow file: `.github/workflows/playwright.yml`
@@ -156,6 +176,10 @@ Automation_Exercise_PW_TS/
 │   ├── testData/             # Example users and test input data
 │   ├── types/                # Shared TS types
 │   └── utils/                # Custom helpers (e.g., API helpers)
+├── .env                      # Local environment variables
+├── .gitignore
+├── package.json              # Project dependencies
+├── package-lock.json         # Dependency lock file
 ├── playwright.config.ts      # Playwright configuration
 ├── testData.json             # Sample input data (external JSON)
 └── tsconfig.json             # TypeScript configuration
