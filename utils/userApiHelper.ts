@@ -1,5 +1,4 @@
 import type { APIRequestContext } from '@playwright/test';
-import testData from '../testData.json';
 import type { UserData } from '../tests/types/user.types';
 
 export async function createUserViaApi(
@@ -10,21 +9,21 @@ export async function createUserViaApi(
     multipart: {
       name: userData.name,
       email: userData.email,
-      password: testData.user.password,
-      title: testData.user.title,
-      birth_date: testData.user.birthday,
-      birth_month: testData.user.birthmonth,
-      birth_year: testData.user.birthyear,
-      firstname: testData.user.firstName,
-      lastname: testData.user.lastName,
-      company: testData.user.company,
-      address1: testData.user.address,
-      address2: testData.user.address,
-      country: testData.user.country,
-      zipcode: testData.user.zipcode,
-      state: testData.user.state,
-      city: testData.user.city,
-      mobile_number: testData.user.mobileNumber,
+      password: userData.password,
+      title: userData.title,
+      birth_date: userData.birthday,
+      birth_month: userData.birthmonth,
+      birth_year: userData.birthyear,
+      firstname: userData.firstName,
+      lastname: userData.lastName,
+      company: userData.company,
+      address1: userData.address,
+      address2: userData.address,
+      country: userData.country,
+      zipcode: userData.zipcode,
+      state: userData.state,
+      city: userData.city,
+      mobile_number: userData.mobileNumber,
     },
   });
 
@@ -38,7 +37,7 @@ export async function deleteUserViaApi(
   const response = await request.delete('/api/deleteAccount', {
     multipart: {
       email: userData.email,
-      password: testData.user.password,
+      password: userData.password,
     },
   });
 

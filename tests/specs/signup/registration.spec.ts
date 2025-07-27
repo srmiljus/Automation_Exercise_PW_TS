@@ -1,7 +1,6 @@
 import { test, expect } from '../../fixtures/base.fixture';
 import { URLS } from '../../constants/urls';
 import { MESSAGES } from '../../constants/messages';
-import testData from '../../../testData.json';
 
 test.describe('User Registration', () => {
   test('Successful User Registration @smoke @regression', async ({
@@ -16,7 +15,7 @@ test.describe('User Registration', () => {
 
     await expect(SignupPage.getCurrentUrl()).resolves.toBe(URLS.SIGNUP);
 
-    await SignupPage.fillRegistrationForm(testData.user);
+    await SignupPage.fillRegistrationForm(userData);
 
     const titleMessage = await AccountCreatedPage.getAccountCreatedMessage();
     expect(titleMessage).toContain(MESSAGES.ACCOUNT_CREATED);

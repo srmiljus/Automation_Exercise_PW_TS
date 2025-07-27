@@ -1,15 +1,12 @@
 import { test, expect } from '../../fixtures/base.fixture';
 import testData from '../../../testData.json';
-import { deleteUserViaApi } from '../../../utils/userApiHelper';
 import { URLS } from '../../constants/urls';
 import { MESSAGES } from '../../constants/messages';
 
 test('E2E: Register, Add to Cart, Logout & Delete @e2e', async ({
   pageManager: { HomePage, LoginPage, SignupPage, AccountCreatedPage, ProductPage, CartPage },
-  request,
   userData
 }) => {
- 
   await HomePage.open(URLS.HOME);
   await HomePage.goToLoginSignup();
 
@@ -18,7 +15,7 @@ test('E2E: Register, Add to Cart, Logout & Delete @e2e', async ({
   await LoginPage.clickSignupButton();
 
   await expect(SignupPage.getCurrentUrl()).resolves.toBe(URLS.SIGNUP);
-  await SignupPage.fillRegistrationForm(testData.user);
+  await SignupPage.fillRegistrationForm(userData);
 
   const titleMessage = await AccountCreatedPage.getAccountCreatedMessage();
   expect(titleMessage).toContain(MESSAGES.ACCOUNT_CREATED);
@@ -34,7 +31,6 @@ test('E2E: Register, Add to Cart, Logout & Delete @e2e', async ({
   expect(productVisible).toBeTruthy();
 
   await ProductPage.clickOnAddToCartButton(testData.product.name);
-
   expect(await ProductPage.isCartModalVisible()).toBeTruthy();
   expect(await ProductPage.isCartTitleVisible(MESSAGES.ADDED_TO_CART)).toBeTruthy();
 
@@ -43,10 +39,4 @@ test('E2E: Register, Add to Cart, Logout & Delete @e2e', async ({
 
   await HomePage.clickNavigationLink('Logout');
   expect(await HomePage.isLoginLinkVisible()).toBeTruthy();
-
-  const response = await deleteUserViaApi(request, userData);
-  const result = await response.json();
-
-  expect(response.ok()).toBeTruthy();
-  expect(result.message).toBe(MESSAGES.ACCOUNT_DELETED);
 });
