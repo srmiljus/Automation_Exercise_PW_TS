@@ -59,8 +59,8 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          TAG="${{ github.event.inputs.test-tag }}"
-          BROWSER="${{ github.event.inputs.browser }}"
+          TAG="${{ github.event.inputs.test-tag || '' }}"
+          BROWSER="${{ github.event.inputs.browser || 'all' }}"
 
           if [[ "$BROWSER" == "all" ]]; then
             PROJECTS="--project=chromium --project=firefox --project=webkit"
@@ -68,7 +68,7 @@ jobs:
             PROJECTS="--project=$BROWSER"
           fi
 
-          if [[ "$TAG" != "" && "$TAG" != "all" ]]; then
+          if [[ -n "$TAG" && "$TAG" != "all" ]]; then
             npx playwright test --grep "$TAG" $PROJECTS --reporter=line,html,allure-playwright
           else
             npx playwright test $PROJECTS --reporter=line,html,allure-playwright
