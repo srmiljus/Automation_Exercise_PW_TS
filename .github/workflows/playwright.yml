@@ -68,10 +68,12 @@ jobs:
             PROJECTS="--project=$BROWSER"
           fi
 
+          REPORTERS="--reporter=line,html,allure-playwright"
+
           if [[ -n "$TAG" && "$TAG" != "all" ]]; then
-            npx playwright test --grep "$TAG" $PROJECTS --reporter=line,html,allure-playwright
+            npx playwright test --grep "$TAG" $PROJECTS $REPORTERS
           else
-            npx playwright test $PROJECTS
+            npx playwright test $PROJECTS $REPORTERS
           fi
 
       - name: Generate Allure Report
