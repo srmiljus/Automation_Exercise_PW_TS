@@ -73,6 +73,8 @@ npx playwright test
 npx playwright test --grep @smoke
 npx playwright test --grep @regression
 npx playwright test --grep @negative
+npx playwright test --grep @e2e
+
 ```
 
 ### Run tests by browser

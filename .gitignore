@@ -17,7 +17,7 @@ allure-report/
 *.log
 
 # Env files
-.env
+# .env
 
 # Optional: Yarn logs (ako neko koristi Yarn)
 yarn-debug.log*
