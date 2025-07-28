@@ -8,7 +8,7 @@ The suite validates core user-facing functionality of the Automation Exercise we
 	•	Adding products to the cart
 	•	Cart detail verification (name, price, quantity)
 	•	Modal visibility and link navigation
-	•	Tag-based test grouping: @regression, @negative, @smoke
+	•	Tag-based test grouping: @regression, @negative, @smoke, @e2e
 
 Target website: https://automationexercise.com
 
@@ -98,7 +98,7 @@ npx playwright show-report
 * Uses a clean Page Object Model (POM) structure
 * Uses fixtures to inject Page Object classes
 * Allure reporter for rich test results
-* Tags used to organize tests: `@smoke`, `@regression`, `@negative`
+* Tags used to organize tests: `@smoke`, `@regression`, `@negative`, `@e2e`
 * API validations included for signup and cleanup
 * Verifies expected error messages and URL transitions
 * Supports both functional and UI-level validation
@@ -120,7 +120,7 @@ GitHub Actions workflow:
 
 * Runs on every push or PR to `main` or `master`
 * Supports manual triggering with dropdowns for:
-  - Test tag selection (`@smoke`, `@regression`, `@negative`, `all`)
+  - Test tag selection (`@smoke`, `@regression`, `@negative`, `all`,`@e2e`)
   - Browser selection (`chromium`, `firefox`, `webkit`, `all`)
 * Generates and uploads Allure and HTML reports as artifacts
 

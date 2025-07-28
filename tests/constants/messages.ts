@@ -5,6 +5,4 @@ export const MESSAGES = {
   USER_CREATED: 'User created!',
   INVALID_LOGIN: 'Your email or password is incorrect!',
   EXISTING_USER_LOGIN: 'Email Address already exist!',
-
-
 };
